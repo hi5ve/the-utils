@@ -1,0 +1,43 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb-base"
+  ],
+  "plugins": [
+    "babel",
+    "promise"
+  ],
+  "env": {
+    "browser": false
+  },
+  "globals": {},
+  "rules": {
+    "no-unused-expressions": 0,
+    "semi": [
+      2,
+      "never"
+    ],
+    "comma-dangle": [
+      "error",
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "ignore"
+      }
+    ],
+    "max-len": [
+      2,
+      120,
+      2
+    ],
+    "generator-star-spacing": 1,
+    "no-confusing-arrow": [
+      "error",
+      {
+        "allowParens": true
+      }
+    ]
+  }
+}

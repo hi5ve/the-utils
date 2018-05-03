@@ -1,0 +1,48 @@
+{
+  "name": "the-utils",
+  "version": "0.2.0",
+  "description": "Set of tools to keep simple thins simple",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "test",
+    "lint": "./node_modules/.bin/eslint src/**/*.js",
+    "lint:fix": "./node_modules/.bin/eslint --fix src/**/*.js",
+    "build": "rimraf lib/ && babel src/ -d lib/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hi5ve/the-utils.git"
+  },
+  "keywords": [
+    "Javascript",
+    "js",
+    "Object",
+    "Array",
+    "String",
+    "tools",
+    "utils"
+  ],
+  "author": "Vladimir Pasechnik <vladimir.pasechnik@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/hi5ve/the-utils/issues"
+  },
+  "homepage": "https://github.com/hi5ve/the-utils#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-promise": "^3.7.0",
+    "rimraf": "^2.6.2"
+  },
+  "dependencies": {}
+}
