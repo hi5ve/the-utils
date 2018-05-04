@@ -1,3 +1,7 @@
+## 0.5.3 (May 04, 2018)
+  - 0.5.3
+  - fix package.json
+
 ## 0.5.2 (May 04, 2018)
   - clear dependencies
 
