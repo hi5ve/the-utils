@@ -1,3 +1,8 @@
+## 0.5.0 (May 04, 2018)
+  - add ignore .idea
+  - bump version
+  - first appoach
+
 ## 0.4.0 (May 04, 2018)
   - add files
 
