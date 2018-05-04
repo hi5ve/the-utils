@@ -1,3 +1,6 @@
+## 0.5.4 (May 04, 2018)
+  - export components
+
 ## 0.5.3 (May 04, 2018)
   - 0.5.3
   - fix package.json
