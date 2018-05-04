@@ -1,3 +1,6 @@
+## 0.5.2 (May 04, 2018)
+  - clear dependencies
+
 ## 0.5.1 (May 04, 2018)
   - 0.5.1
   - bump version
