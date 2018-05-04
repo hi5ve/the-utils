@@ -1,12 +1,6 @@
-import { obj } from './object'
-import { arr } from './array'
-import { str } from './string'
-import { date } from './date'
+import _obj from './object'
+import _arr from './array'
+import _str from './string'
+import _date from './date'
 
-export default {
-  obj,
-  arr,
-  str,
-  date,
-}
-
+export default { obj: _obj, arr: _arr, str: _str, date: _date }

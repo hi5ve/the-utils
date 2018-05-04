@@ -4,10 +4,41 @@
   "description": "Set of tools to keep simple thins simple",
   "main": "lib/index.js",
   "scripts": {
-    "test": "test",
-    "lint": "./node_modules/.bin/eslint src/**/*.js",
-    "lint:fix": "./node_modules/.bin/eslint --fix src/**/*.js",
-    "build": "rimraf lib/ && babel src/ -d lib/"
+    "clean": "rimraf lib",
+    "clean:all": "rimraf lib node_modules",
+    "test": "better-npm-run test",
+    "lint": "better-npm-run lint",
+    "lint:fix": "better-npm-run lint:fix",
+    "build": "better-npm-run build",
+    "compile": "better-npm-run compile",
+    "compile:watch": "better-npm-run compile:watch"
+  },
+  "betterScripts": {
+    "compile": {
+      "command": "babel src --out-dir lib",
+      "env": {}
+    },
+    "compile:watch": {
+      "command": "babel -w src --out-dir lib",
+      "env": {}
+    },
+    "build": {
+      "command": "npm run clean && better-npm-run compile",
+      "env": {
+        "DEBUG": "app:*"
+      }
+    },
+    "lint": {
+      "command": "eslint src/**/*.js",
+      "env": {}
+    },
+    "lint:fix": {
+      "command": "eslint --fix src/**/*.js",
+      "env": {}
+    },
+    "test": {
+      "command": "jest"
+    }
   },
   "repository": {
     "type": "git",
@@ -37,12 +68,16 @@
     "babel-preset-stage-1": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-promise": "^3.7.0",
     "rimraf": "^2.6.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^22.4.3",
+    "better-npm-run": "^0.1.0",
+    "jest": "^22.4.3"
+  }
 }
