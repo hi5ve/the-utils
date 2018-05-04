@@ -1,6 +1,6 @@
 {
   "name": "the-utils",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "Set of tools to keep simple things simple",
   "main": "lib/index.js",
   "scripts": {
