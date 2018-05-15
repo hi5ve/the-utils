@@ -3,27 +3,41 @@ import { obj } from './object'
 // ======== Array
 const isArray = a => a && Array.isArray(a)
 
-const objByKey = (a, key) => (isArray(a) ? a.reduce(
-  (n, t) => {
-    (n[t[key]] || (n[t[key]] = [])).push(t)
-    return n
-  },
-  {}
-) : {}
-)
+const get = (a, index, defaultValue) => (isArray(a) && typeof a[index] !== 'undefined' ? a[index] : defaultValue)
 
-const getArrValue = (a, index, defaultValue) => (typeof a[index] !== 'undefined' ? a[index] : defaultValue)
-
-const objByPages = (a, rows) => {
-  const inRows = (rows === 0 ? 10 : rows)
-  return isArray(a) ? a.reduce(
-    (n, t, i) => {
-      const j = Math.trunc(i / inRows);
-      (n[j] || (n[j] = [])).push(t)
-      return n
+const objByKey = (a, key) => {
+  if (!isArray(a)) {
+    return {}
+  }
+  return a.reduce(
+    (agg, t) => {
+      const okey = obj.get(t, key, 'default')
+      const oval = obj.get(agg, okey, [])
+      return {
+        ...agg,
+        [okey]: [...oval, t],
+      }
     },
     {}
-  ) : {}
+  )
+}
+
+const objByPages = (a, rows = 0) => {
+  if (!isArray(a)) {
+    return { 1: [] }
+  }
+  const inRows = (!Number.isInteger(rows) || rows === 0 ? 10 : rows)
+  return a.reduce(
+    (agg, t, i) => {
+      const okey = Math.trunc(i / inRows) + 1
+      const oval = obj.get(agg, okey, [])
+      return {
+        ...agg,
+        [okey]: [...oval, t],
+      }
+    },
+    {}
+  )
 }
 
 /**
@@ -59,8 +73,8 @@ export const keyUnique = (a, key) => a.reduce(
 
 export const arr = {
   isArray,
+  get,
   objByKey,
-  getArrValue,
   objByPages,
   hasintersect,
   unique,

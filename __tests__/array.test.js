@@ -1,11 +1,7 @@
-import { obj } from '../src/object'
+import { arr } from '../src/array'
 
 // jest.setTimeout(100000)
 // beforeAll(async () => {})
-
-const o = { a: 2, b: 1 }
-const o1 = { a: { a1: 2, a2: 5 }, b: 1 }
-
 function Person(first, last, age, eye) {
   this.firstName = first
   this.lastName = last
@@ -13,326 +9,169 @@ function Person(first, last, age, eye) {
   this.eyeColor = eye
 }
 
+const a = [1, 2, 3]
 const p = new Person('First', 'Last', 5, 'brown')
 
-describe('the-utils/obj.isObject(o)', () => {
-  test('null is not an object', async () => {
-    expect(obj.isObject(null))
+const aOffObjs = [
+  new Person('First1', 'Last1', 5, 'brown'),
+  new Person('First2', 'Last2', 15, 'green'),
+  new Person('First3', 'Last3', 25, 'grey'),
+  new Person('First4', 'Last4', 15, 'blue'),
+  new Person('First5', 'Last5', 25, 'brown'),
+  new Person('First6', 'Last6', 5, 'red'),
+  new Person('First7', 'Last7', 15, 'brown'),
+  new Person('First8', 'Last8', 25, 'blue'),
+  new Person('First9', 'Last9', 5, 'grey'),
+  new Person('First10', 'Last10', 15, 'brown'),
+]
+
+// isArray,
+describe('the-utils/arr.isArray(a)', () => {
+  test('null is not an array', async () => {
+    expect(arr.isArray(null))
       .toBeFalsy()
   })
-  test('undefined is not an object', async () => {
-    expect(obj.isObject(undefined))
+  test('undefined is not an array', async () => {
+    expect(arr.isArray(undefined))
       .toBeFalsy()
   })
-  test('array is not an object', async () => {
-    expect(obj.isObject([1, 2, 3]))
+  test('array is not an array', async () => {
+    expect(arr.isArray([1, 2, 3]))
+      .toBeTruthy()
+  })
+  test('{} is an array', async () => {
+    expect(arr.isArray({}))
       .toBeFalsy()
   })
-  test('{} is an object', async () => {
-    expect(obj.isObject({}))
+  test('{ a: 2, b: 1 } is an array', async () => {
+    expect(arr.isArray(a))
       .toBeTruthy()
   })
-  test('{ a: 2, b: 1 } is an object', async () => {
-    expect(obj.isObject(o))
-      .toBeTruthy()
+  test('Person is an array', async () => {
+    expect(arr.isArray(p))
+      .toBeFalsy()
   })
-  test('Person is an object', async () => {
-    expect(obj.isObject(p))
-      .toBeTruthy()
-  })
-  test('String is not an object', async () => {
-    expect(obj.isObject(String('abc')))
+  test('String is not an array', async () => {
+    expect(arr.isArray(String('abc')))
       .toBeFalsy()
   })
 })
 
-describe('the-utils/obj.has(o, property)', () => {
-  test('null has no a', async () => {
-    expect(obj.has(null, 'a'))
-      .toBeFalsy()
-  })
-  test('undefined has no a', async () => {
-    expect(obj.has(undefined, 'a'))
-      .toBeFalsy()
-  })
-  test('{} has no a', async () => {
-    expect(obj.has({}, 'a'))
-      .toBeFalsy()
-  })
-  test('{ a: 2, b: 1 } has a', async () => {
-    expect(obj.has(o, 'a'))
-      .toBeTruthy()
-  })
-  test('{ a: 2, b: 1 } has a', async () => {
-    expect(obj.has(o, 'a'))
-      .toBeTruthy()
-  })
-  test('Person has firstName', async () => {
-    expect(obj.has(p, 'firstName'))
-      .toBeTruthy()
-  })
-})
-
-describe('the-utils/obj.get(o, property, defaultValue)', () => {
-  test('get a of null returns default', async () => {
-    expect(obj.get(null, 'a', 1))
+// getArrValue,
+describe('the-utils/arr.get(a)', () => {
+  test('get 2 of null returns default', async () => {
+    expect(arr.get(null, 2, 1))
       .toBe(1)
   })
-  test('get a of undefined returns default', async () => {
-    expect(obj.get(undefined, 'a', 1))
+  test('get 2 of undefined returns default', async () => {
+    expect(arr.get(undefined, 2, 1))
       .toBe(1)
   })
-  test('get a of {} returns default', async () => {
-    expect(obj.get({}, 'a', 1))
+  test('get 2 of {} returns default', async () => {
+    expect(arr.get({}, 2, 1))
       .toBe(1)
   })
-  test('get c of { a: 2, b: 1 } returns default', async () => {
-    expect(obj.get({}, 'c', 1))
-      .toBe(1)
-  })
-  test('get a of { a: 2, b: 1 } returns 2', async () => {
-    expect(obj.get(o, 'a', 1))
-      .toBe(2)
-  })
-  test('get a of Person returns default', async () => {
-    expect(obj.get(p, 'a', 1))
+  test('get 2 of Person returns default', async () => {
+    expect(arr.get(p, 2, 1))
       .toBe(1)
   })
   test('get firstName of Person returns First', async () => {
-    expect(obj.get(p, 'firstName', 1))
-      .toBe('First')
+    expect(arr.get(p, 'firstName', 1))
+      .toBe(1)
+  })
+  test('get 2 of [1, 2, 3] returns 3', async () => {
+    expect(arr.get(a, 2, 1))
+      .toBe(3)
   })
 })
 
-describe('the-utils/obj.set(o, property, value)', () => {
-  test('set a of null returns {a:1}', async () => {
-    expect(obj.set(null, 'a', 1))
+// objByKey,
+describe('the-utils/arr.objByKey(a)', () => {
+  test('grouping by eyeColor null returns empty object', async () => {
+    const result = arr.objByKey(null, 'eyeColor')
+    expect(result)
+      .toBeInstanceOf({}.constructor)
+    expect(result)
+      .toEqual(expect.objectContaining({}))
+    expect(Object.keys(result))
+      .toHaveLength(0)
+  })
+  test('grouping by eyeColor aOffObjs returns empty object', async () => {
+    const result = arr.objByKey(aOffObjs, 'eyeColor')
+    expect(result)
+      .toBeInstanceOf({}.constructor)
+    expect(result)
       .toEqual(expect.objectContaining({
-        a: 1,
+        blue: expect.arrayContaining([]),
+        brown: expect.arrayContaining([]),
+        green: expect.arrayContaining([]),
+        grey: expect.arrayContaining([]),
+        red: expect.arrayContaining([]),
       }))
+    expect(Object.keys(result))
+      .toEqual(expect.arrayContaining(['red', 'brown', 'green', 'grey', 'red']))
+    expect(Object.keys(result))
+      .toHaveLength(5)
   })
-  test('set a of undefined returns {a:1}', async () => {
-    expect(obj.set(undefined, 'a', 1))
+})
+
+// objByPages,
+describe('the-utils/arr.objByPages(a)', () => {
+  test('grouping by pages null returns empty object', async () => {
+    const result = arr.objByPages(null, 10)
+    expect(result)
+      .toBeInstanceOf({}.constructor)
+    expect(Object.keys(result))
+      .toEqual(expect.arrayContaining(['1']))
+    expect(result)
+      .toEqual(expect.objectContaining({ 1: expect.arrayContaining([]) }))
+    expect(Object.keys(result))
+      .toHaveLength(1)
+  })
+  test('grouping by pages aOffObjs for undefined returns empty 1 page object', async () => {
+    const result = arr.objByPages(aOffObjs, undefined)
+    expect(result)
+      .toBeInstanceOf({}.constructor)
+    expect(Object.keys(result))
+      .toEqual(expect.arrayContaining(['1']))
+    expect(result)
+      .toEqual(expect.objectContaining({ 1: expect.arrayContaining([]) }))
+    expect(Object.keys(result))
+      .toHaveLength(1)
+  })
+  test('grouping by pages aOffObjs returns pages by 10', async () => {
+    const result = arr.objByPages(aOffObjs)
+    expect(result)
+      .toBeInstanceOf({}.constructor)
+    expect(result)
       .toEqual(expect.objectContaining({
-        a: 1,
+        1: expect.arrayContaining([]),
       }))
+    expect(Object.keys(result))
+      .toEqual(expect.arrayContaining(['1']))
+    expect(result[1])
+      .toHaveLength(10)
   })
-  test('set a of {} returns {a:1}', async () => {
-    expect(obj.set({}, 'a', 1))
+  test('grouping by 10 pages aOffObjs pages by 10', async () => {
+    const result = arr.objByPages(aOffObjs, 10)
+    expect(result)
+      .toBeInstanceOf({}.constructor)
+    expect(result)
       .toEqual(expect.objectContaining({
-        a: 1,
+        1: expect.arrayContaining([]),
       }))
-  })
-  test('get c of { a: 2, b: 1 } returns { a: 2, b: 1, c:3 }', async () => {
-    expect(obj.set(o, 'c', 3))
-      .toEqual(expect.objectContaining({
-        a: 2, b: 1, c: 3,
-      }))
-  })
-
-  test('set a of Person returns Person.a == 1', async () => {
-    expect(obj.set(o, 'a', 1))
-      .toEqual(expect.objectContaining({
-        ...Person, a: 1,
-      }))
+    expect(Object.keys(result))
+      .toEqual(expect.arrayContaining(['1']))
+    expect(result[1])
+      .toHaveLength(10)
   })
 })
-
-describe('the-utils/obj.isEmpty(o)', () => {
-  test('null is Empty', async () => {
-    expect(obj.isEmpty(null))
-      .toBeTruthy()
-  })
-  test('undefined is Empty', async () => {
-    expect(obj.isEmpty(undefined))
-      .toBeTruthy()
-  })
-  test('{} is Empty', async () => {
-    expect(obj.isEmpty({}))
-      .toBeTruthy()
-  })
-  test('{ a: 2, b: 1 } is not Empty', async () => {
-    expect(obj.isEmpty(o))
-      .toBeFalsy()
-  })
+// hasintersect,
+describe('the-utils/arr.hasintersect(a)', () => {
 })
-
-describe('the-utils/obj.toArray(o)', () => {
-  test('null is Empty array', async () => {
-    const r = obj.toArray(null)
-    expect(r)
-      .toHaveLength(0)
-    expect(r)
-      .toEqual(expect.arrayContaining([]))
-  })
-  test('undefined is Empty array', async () => {
-    const r = obj.toArray(undefined)
-    expect(r)
-      .toHaveLength(0)
-    expect(r)
-      .toEqual(expect.arrayContaining([]))
-  })
-  test('{} is Empty array', async () => {
-    const r = obj.toArray({})
-    expect(r)
-      .toHaveLength(0)
-    expect(r)
-      .toEqual(expect.arrayContaining([]))
-  })
-  test('{ a: 2, b: 1 } is [ 2, 1 ]', async () => {
-    const r = obj.toArray(o)
-    expect(r)
-      .toHaveLength(2)
-    expect(r)
-      .toEqual(expect.arrayContaining([2, 1]))
-  })
-  test('Person is [ \'First\', \'Last\', 5, \'brown\' ]', async () => {
-    const r = obj.toArray(p)
-    expect(r)
-      .toHaveLength(4)
-    expect(r)
-      .toEqual(expect.arrayContaining([
-        'First',
-        'Last',
-        5,
-        'brown',
-      ]))
-  })
+// unique,
+describe('the-utils/arr.unique(a)', () => {
 })
-
-describe('the-utils/obj.deepGet(obj, props, defaultValue)', () => {
-  test('null returns default', async () => {
-    expect(obj.deepGet(null, ['a'], 1))
-      .toEqual(1)
-  })
-  test('undefined returns default', async () => {
-    expect(obj.deepGet(undefined, ['a'], 1))
-      .toEqual(1)
-  })
-  test('{} returns default', async () => {
-    expect(obj.deepGet(undefined, ['a'], 1))
-      .toEqual(1)
-  })
-  test('a of { a: 2, b: 1 } returns 2', async () => {
-    expect(obj.deepGet(o, ['a'], 1))
-      .toEqual(2)
-  })
-  test('a of { a: { a1: 2, a2: 5}, b: 1 } returns 5', async () => {
-    expect(obj.deepGet(o1, ['a', 'a2'], 1))
-      .toEqual(5)
-  })
-  test('a of { a: { a1: 2, a2: 5}, b: 1 } returns default', async () => {
-    expect(obj.deepGet(o1, ['a', 'a3'], 1))
-      .toEqual(1)
-  })
-})
-
-describe('the-utils/obj.toArrayFilter(obj, props, defaultValue)', () => {
-  test('null returns empty array', async () => {
-    const r = obj.toArrayFilter(null, /_test/)
-    expect(r)
-      .toHaveLength(0)
-    expect(r)
-      .toEqual(expect.arrayContaining([]))
-  })
-  test('undefined returns empty array', async () => {
-    const r = obj.toArrayFilter(undefined, /_test/)
-    expect(r)
-      .toHaveLength(0)
-    expect(r)
-      .toEqual(expect.arrayContaining([]))
-  })
-  test('{} returns empty array', async () => {
-    const r = obj.toArrayFilter({}, /_test/)
-    expect(r)
-      .toHaveLength(0)
-    expect(r)
-      .toEqual(expect.arrayContaining([]))
-  })
-  test('{ a: 2, b: 1 } returns empty array', async () => {
-    const r = obj.toArrayFilter(o, /_test/)
-    expect(r)
-      .toHaveLength(0)
-    expect(r)
-      .toEqual(expect.arrayContaining([]))
-  })
-  test('Person returns empty array', async () => {
-    const r = obj.toArrayFilter(p, /_test/)
-    expect(r)
-      .toHaveLength(0)
-    expect(r)
-      .toEqual(expect.arrayContaining([]))
-  })
-  test('Person returns empty array', async () => {
-    const r = obj.toArrayFilter(p, /Name$/)
-    expect(r)
-      .toHaveLength(2)
-    expect(r)
-      .toEqual(expect.arrayContaining([
-        'First',
-        'Last',
-      ]))
-  })
-})
-
-describe('the-utils/obj.filterKeys(obj, r)', () => {
-  test('null returns empty object', async () => {
-    const r = obj.filterKeys(null, /_test/)
-    expect(Object.keys(r))
-      .toHaveLength(0)
-    expect(r)
-      .toEqual(expect.objectContaining({}))
-  })
-  test('undefined returns empty object', async () => {
-    const r = obj.filterKeys(undefined, /_test/)
-    expect(Object.keys(r))
-      .toHaveLength(0)
-    expect(r)
-      .toEqual(expect.objectContaining({}))
-  })
-  test('{} returns empty object', async () => {
-    const r = obj.filterKeys({}, /_test/)
-    expect(Object.keys(r))
-      .toHaveLength(0)
-    expect(r)
-      .toEqual(expect.objectContaining({}))
-  })
-  test('{ a: 2, b: 1 } returns empty object', async () => {
-    const r = obj.filterKeys(o, /_test/)
-    expect(Object.keys(r))
-      .toHaveLength(0)
-    expect(r)
-      .toEqual(expect.objectContaining({}))
-  })
-  test('Person returns empty object with /_test/', async () => {
-    const r = obj.filterKeys(p, /_test/)
-    expect(Object.keys(r))
-      .toHaveLength(0)
-    expect(r)
-      .toEqual(expect.objectContaining({}))
-  })
-  test('Person returns non empty object with /Name$/', async () => {
-    const r = obj.filterKeys(p, /Name$/)
-    expect(Object.keys(r))
-      .toHaveLength(2)
-    expect(r)
-      .toEqual(expect.objectContaining({ firstName: 'First', lastName: 'Last' }))
-  })
-})
-
-describe('the-utils/obj.cast(fields, props)', () => {
-  test('null fields returns empty object', async () => {
-    const r = obj.cast(null, { a: 1, b: 2 })
-    expect(Object.keys(r))
-      .toHaveLength(0)
-    expect(r)
-      .toEqual(expect.objectContaining({}))
-  })
-  test('null object returns defaults', async () => {
-    const r = obj.cast({ a: 1, b: 2 }, null)
-    expect(Object.keys(r))
-      .toHaveLength(2)
-    expect(r)
-      .toEqual(expect.objectContaining({ a: 1, b: 2 }))
-  })
+// keyUnique,
+describe('the-utils/arr.keyUnique(a)', () => {
 })

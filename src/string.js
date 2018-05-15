@@ -43,6 +43,8 @@ const search = (str1, str2) => String(str1 || ''.toLowerCase())
 const btoa = str => Buffer.from(str)
   .toString('base64')
 
+const checkport = (host, port) => (host.indexOf(':') === -1 ? `${host}:${port}` : host)
+
 export const str = {
   template,
   cmp,
@@ -51,6 +53,7 @@ export const str = {
   short,
   search,
   btoa,
+  checkport,
 }
 
 export default str

@@ -1,12 +1,15 @@
 {
   "name": "the-utils",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "Set of tools to keep simple things simple",
   "main": "lib/index.js",
   "scripts": {
     "clean": "rimraf lib",
     "clean:all": "rimraf lib node_modules",
     "test": "better-npm-run test",
+    "test:coverage": "better-npm-run test:coverage",
+    "test:watch": "better-npm-run test:watch",
+    "test:watchcoverage": "better-npm-run test:watchcoverage",
     "lint": "better-npm-run lint",
     "lint:fix": "better-npm-run lint:fix",
     "build": "better-npm-run build",
@@ -38,6 +41,15 @@
     },
     "test": {
       "command": "jest"
+    },
+    "test:coverage": {
+      "command": "jest --coverage"
+    },
+    "test:watch": {
+      "command": "jest --watch"
+    },
+    "test:watchcoverage": {
+      "command": "jest --watch --coverage"
     }
   },
   "repository": {
@@ -74,6 +86,7 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jest": "^21.15.1",
     "eslint-plugin-promise": "^3.7.0",
     "jest": "^22.4.3",
     "rimraf": "^2.6.2"
