@@ -3,11 +3,11 @@ import { obj } from './object'
 
 // =========== String
 const template = (strings, ...keys) => (...values) => {
-  const dict = arr.getArrValue(values, [values.length - 1], {})
+  const dict = arr.get(values, [values.length - 1], {})
   return strings.reduce((accumulator, part, i) => accumulator
     + (Number.isInteger(keys[i - 1]) ?
-      arr.getArrValue(values, keys[i - 1], '')
-      : obj.getKeyValue(dict, keys[i - 1], ''))
+      arr.get(values, keys[i - 1], '')
+      : obj.get(dict, keys[i - 1], ''))
     + part)
 }
 
