@@ -1,3 +1,6 @@
+## 0.5.7 (May 16, 2018)
+  - fix
+
 ## 0.5.6 (May 16, 2018)
   - bump to 0.5.6
   - add array tests and str checkport
