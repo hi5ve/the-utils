@@ -93,6 +93,10 @@ export const changeKey = (o, key, f, def = '') => set(o, key, f(get(o, key, def)
 export const deepChangeKey = (o, key, f, def = '') => Object.keys(o)
   .reduce((a, c) => set(a, c, changeKey(o[c], key, f, def)), {})
 
+const toURL = o => Object.keys(o)
+  .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(o[k])}`)
+  .join('&')
+
 // ========= Exports
 export const obj = {
   has,
@@ -109,6 +113,7 @@ export const obj = {
   createFilter,
   filterKeys,
   isObject,
+  toURL,
 }
 
 export default obj

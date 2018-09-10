@@ -45,6 +45,14 @@ const btoa = str => Buffer.from(str)
 
 const checkport = (host, port) => (host.indexOf(':') === -1 ? `${host}:${port}` : host)
 
+const getCookie = (name) => {
+  if (typeof document !== 'undefined') {
+    const v = document.cookie.match(`(^|;) ?${name}=([^;]*)(;|$)`) // eslint-disable-line no-undef
+    return v ? v[2] : undefined
+  }
+  return undefined
+}
+
 export const str = {
   template,
   cmp,
@@ -54,6 +62,7 @@ export const str = {
   search,
   btoa,
   checkport,
+  getCookie,
 }
 
 export default str
