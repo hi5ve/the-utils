@@ -1,3 +1,6 @@
+## 0.5.8 (September 10, 2018)
+  - add methods
+
 ## 0.5.7 (May 16, 2018)
   - fix
 
